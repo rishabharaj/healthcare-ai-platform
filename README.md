@@ -95,8 +95,16 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-If you have any questions or suggestions, feel free to open an issue or contact us at [email@example.com](mailto:email@example.com).
-
+If you have any questions or suggestions, feel free to open an issue or contact us at :-   
+<a href="mailto:rishabharaj321@gmail.com" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="30" alt="gmail logo"  />
+  </a>
+    <a href="https://www.instagram.com/eclipsor_rishabh?igsh=dGM2NXJ0YWxzOGpy" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="30" alt="instagram logo"  />
+  </a>
+    <a href="https://www.linkedin.com/in/rishabharaj-sharma-57a7a8256">
+    <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="30" alt="linkedin logo"  />
+  </a>
 ## Demo
 
 Below are some demo images of the platform:
