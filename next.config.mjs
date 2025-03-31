@@ -21,6 +21,8 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  basePath: '/healthcare-ai-platform',
+  assetPrefix: '/healthcare-ai-platform/',
 }
 
 mergeConfig(nextConfig, userConfig)
@@ -45,4 +47,4 @@ function mergeConfig(nextConfig, userConfig) {
   }
 }
 
-export default nextConfig
+export default nextConfig 
