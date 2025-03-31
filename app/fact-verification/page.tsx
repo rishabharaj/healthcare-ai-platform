@@ -114,7 +114,7 @@ export default function FactVerificationPage() {
   }
 
   return (
-    <div className="container max-w-4xl py-8">
+    <div className="container max-w-4xl py-8 mx-auto">
       <h1 className="text-3xl font-bold mb-6">Medical Fact Verification</h1>
 
       <div className="mb-6">

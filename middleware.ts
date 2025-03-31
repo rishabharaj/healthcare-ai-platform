@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { auth } from "@/auth"
 
 export async function middleware(request: NextRequest) {
-  const session = await auth()
-
   // Public paths that don't require authentication
   const publicPaths = ["/", "/auth/login", "/auth/register", "/auth/forgot-password", "/about"]
   const isPublicPath = publicPaths.some(
@@ -16,24 +13,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Check for authentication token in cookies
+  const sessionToken = request.cookies.get("next-auth.session-token")
+
   // If not authenticated, redirect to login
-  if (!session) {
+  if (!sessionToken) {
     const url = new URL("/auth/login", request.url)
     url.searchParams.set("callbackUrl", request.nextUrl.pathname)
     return NextResponse.redirect(url)
   }
 
-  // Doctor-only paths
-  const doctorPaths = ["/dashboard/admin", "/patient-data", "/analytics"]
-  const isDoctorPath = doctorPaths.some(
-    (path) => request.nextUrl.pathname === path || request.nextUrl.pathname.startsWith(`${path}/`),
-  )
-
-  // If trying to access doctor-only path but not a doctor
-  if (isDoctorPath && session.user.userType !== "doctor") {
-    return NextResponse.redirect(new URL("/dashboard", request.url))
-  }
-
+  // For protected routes, we'll let the page component handle the authorization
   return NextResponse.next()
 }
 
