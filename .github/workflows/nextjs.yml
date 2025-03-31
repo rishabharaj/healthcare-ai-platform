@@ -40,19 +40,14 @@ jobs:
         with:
           version: 8
           run_install: false
-      - name: Get pnpm store directory
-        shell: bash
+      - name: Setup pnpm config
         run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          pnpm config set auto-install-peers true
+          pnpm config set strict-peer-dependencies false
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm rebuild bcrypt
       - name: Build with Next.js
         run: pnpm build
       - name: Upload artifact
