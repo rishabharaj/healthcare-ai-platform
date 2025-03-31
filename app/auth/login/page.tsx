@@ -11,14 +11,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertCircle, Info } from "lucide-react"
 import Link from "next/link"
-import { useAuth } from "@/lib/auth-context"
+import { signIn } from "next-auth/react"
 
 export default function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
 
-  const { login } = useAuth()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -30,12 +29,16 @@ export default function LoginPage() {
     setError("")
 
     try {
-      const success = await login(email, password)
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      })
 
-      if (success) {
-        router.push(callbackUrl)
-      } else {
+      if (result?.error) {
         setError("Invalid email or password")
+      } else {
+        router.push(callbackUrl)
       }
     } catch (error) {
       console.error("Login error:", error)
@@ -53,12 +56,16 @@ export default function LoginPage() {
     const password = "password123"
 
     try {
-      const success = await login(email, password)
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      })
 
-      if (success) {
-        router.push(callbackUrl)
-      } else {
+      if (result?.error) {
         setError("Demo login failed. Please try again.")
+      } else {
+        router.push(callbackUrl)
       }
     } catch (error) {
       console.error("Demo login error:", error)

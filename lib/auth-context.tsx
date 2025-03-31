@@ -1,96 +1,98 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-import { useRouter } from "next/navigation"
+import { createContext, useContext, useState, useEffect } from "react"
+import { useSession, signOut } from "next-auth/react"
 
-// Define user type
-export interface User {
+interface User {
   id: string
-  name: string
-  email: string
-  userType: "doctor" | "patient"
-  image?: string
+  name: string | null
+  email: string | null
+  userType: string
+  phone?: string
+  age?: string
+  gender?: string
+  bloodGroup?: string
 }
 
-// Define auth context type
 interface AuthContextType {
   user: User | null
-  login: (email: string, password: string) => Promise<boolean>
-  logout: () => void
   loading: boolean
+  error: string | null
+  logout: () => Promise<void>
+  updateUser: (userData: Partial<User>) => Promise<void>
 }
 
-// Create context
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-// Mock users for demo
-const MOCK_USERS = [
-  {
-    id: "1",
-    name: "Doctor Demo",
-    email: "doctor@example.com",
-    password: "password123",
-    userType: "doctor" as const,
-  },
-  {
-    id: "2",
-    name: "Patient Demo",
-    email: "patient@example.com",
-    password: "password123",
-    userType: "patient" as const,
-  },
-]
-
-// Provider component
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const { data: session, status, update: updateSession } = useSession()
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
 
-  // Check for saved user on mount
   useEffect(() => {
-    const savedUser = localStorage.getItem("user")
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser))
-      } catch (error) {
-        console.error("Failed to parse saved user:", error)
-        localStorage.removeItem("user")
+    if (session?.user) {
+      setUser({
+        id: session.user.id as string,
+        name: session.user.name || null,
+        email: session.user.email || null,
+        userType: session.user.userType as string,
+        phone: session.user.phone || "",
+        age: session.user.age || "",
+        gender: session.user.gender || "",
+        bloodGroup: session.user.bloodGroup || "",
+      })
+    } else {
+      setUser(null)
+    }
+  }, [session])
+
+  const logout = async () => {
+    try {
+      await signOut()
+    } catch (error) {
+      console.error("Logout error:", error)
+      setError("Failed to logout")
+    }
+  }
+
+  const updateUser = async (userData: Partial<User>) => {
+    try {
+      // Send update request
+      const response = await fetch("/api/user", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
       }
+
+      const { user: updatedUser } = await response.json();
+
+      // Update session
+      await updateSession({
+        user: updatedUser
+      });
+
+      // Update local state
+      setUser(prev => prev ? { ...prev, ...updatedUser } : null);
+
+    } catch (error) {
+      console.error("Update user error:", error);
+      throw new Error("Failed to update user");
     }
-    setLoading(false)
-  }, [])
-
-  // Login function
-  const login = async (email: string, password: string): Promise<boolean> => {
-    // Find user with matching email
-    const foundUser = MOCK_USERS.find((u) => u.email === email)
-
-    // Check if user exists and password matches
-    if (foundUser && foundUser.password === password) {
-      // Create user object without password
-      const { password, ...userWithoutPassword } = foundUser
-
-      // Save user to state and localStorage
-      setUser(userWithoutPassword)
-      localStorage.setItem("user", JSON.stringify(userWithoutPassword))
-      return true
-    }
-
-    return false
   }
 
-  // Logout function
-  const logout = () => {
-    setUser(null)
-    localStorage.removeItem("user")
-    router.push("/")
-  }
-
-  return <AuthContext.Provider value={{ user, login, logout, loading }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, loading: status === "loading", error, logout, updateUser }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
-// Custom hook to use auth context
 export function useAuth() {
   const context = useContext(AuthContext)
   if (context === undefined) {
