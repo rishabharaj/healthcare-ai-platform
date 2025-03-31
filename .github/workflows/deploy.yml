@@ -65,7 +65,7 @@ jobs:
         run: pnpm install
 
       - name: Build with Next.js
-        run: pnpm next build
+        run: pnpm build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
