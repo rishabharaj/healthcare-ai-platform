@@ -103,12 +103,19 @@ export default function DiseasePredictionPage() {
 
   return (
     <div className="container max-w-4xl py-8 mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Disease Prediction</h1>
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-medical-teal bg-clip-text text-transparent mb-4">
+          Disease Prediction
+        </h1>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          AI-powered analysis of symptoms and medical history for disease prediction
+        </p>
+      </div>
 
-      <div className="mb-6">
-        <Alert>
-          <Info className="h-4 w-4" />
-          <AlertTitle>Important Notice</AlertTitle>
+      <div className="mb-8">
+        <Alert className="border-health-warning/20 bg-health-warning/5">
+          <Info className="h-4 w-4 text-health-warning" />
+          <AlertTitle className="text-health-warning">Important Notice</AlertTitle>
           <AlertDescription>
             This tool is for educational purposes only and not a substitute for professional medical advice. Always
             consult with a healthcare professional for medical concerns.
@@ -117,7 +124,7 @@ export default function DiseasePredictionPage() {
       </div>
 
       <Tabs defaultValue="symptoms">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-2 h-12 p-1 bg-muted/50">
           <TabsTrigger value="symptoms">Input Information</TabsTrigger>
           <TabsTrigger value="results" disabled={results.length === 0}>
             Prediction Results
@@ -125,9 +132,14 @@ export default function DiseasePredictionPage() {
         </TabsList>
 
         <TabsContent value="symptoms">
-          <Card>
-            <CardHeader>
-              <CardTitle>Enter Your Health Information</CardTitle>
+          <Card className="health-card-hover border-l-4 border-l-medical-teal">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-semibold flex items-center gap-2">
+                <div className="p-2 rounded-lg bg-medical-teal/10">
+                  <Activity className="h-5 w-5 text-medical-teal" />
+                </div>
+                Enter Your Health Information
+              </CardTitle>
               <CardDescription>
                 Provide your symptoms, medical history, and any relevant medical reports for analysis.
               </CardDescription>
@@ -141,32 +153,47 @@ export default function DiseasePredictionPage() {
                   </Alert>
                 )}
 
-                <div className="space-y-2">
-                  <Label htmlFor="symptoms">Symptoms</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="symptoms" className="text-sm font-medium flex items-center gap-2">
+                    <div className="p-1 rounded bg-medical-blue/10">
+                      <Activity className="h-3 w-3 text-medical-blue" />
+                    </div>
+                    Symptoms
+                  </Label>
                   <Textarea
                     id="symptoms"
                     placeholder="Describe your symptoms in detail (e.g., fever, headache, cough for 3 days)"
                     value={symptoms}
                     onChange={(e) => setSymptoms(e.target.value)}
-                    className="min-h-[120px]"
+                    className="min-h-[120px] transition-all duration-200 focus:ring-2 focus:ring-medical-blue/20 focus:border-medical-blue"
                     required
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="medical-history">Medical History</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="medical-history" className="text-sm font-medium flex items-center gap-2">
+                    <div className="p-1 rounded bg-medical-green/10">
+                      <FileText className="h-3 w-3 text-medical-green" />
+                    </div>
+                    Medical History
+                  </Label>
                   <Textarea
                     id="medical-history"
                     placeholder="Any pre-existing conditions, allergies, or medications you're currently taking"
                     value={medicalHistory}
                     onChange={(e) => setMedicalHistory(e.target.value)}
-                    className="min-h-[120px]"
+                    className="min-h-[120px] transition-all duration-200 focus:ring-2 focus:ring-medical-green/20 focus:border-medical-green"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label>Upload Medical Reports (Optional)</Label>
-                  <div className="border border-dashed rounded-lg p-6 text-center">
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium flex items-center gap-2">
+                    <div className="p-1 rounded bg-health-warning/10">
+                      <Upload className="h-3 w-3 text-health-warning" />
+                    </div>
+                    Upload Medical Reports (Optional)
+                  </Label>
+                  <div className="border-2 border-dashed border-primary/20 rounded-lg p-6 text-center hover:border-primary/40 transition-colors duration-200">
                     <Input
                       type="file"
                       className="hidden"
@@ -176,22 +203,29 @@ export default function DiseasePredictionPage() {
                       accept=".pdf,.jpg,.jpeg,.png"
                     />
                     <Label htmlFor="file-upload" className="cursor-pointer">
-                      <div className="flex flex-col items-center gap-2">
-                        <Upload className="h-8 w-8 text-muted-foreground" />
-                        <p className="text-sm font-medium">Click to upload or drag and drop</p>
-                        <p className="text-xs text-muted-foreground">PDF, JPG or PNG (max 10MB)</p>
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="p-3 rounded-full bg-primary/10">
+                          <Upload className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-foreground">Click to upload or drag and drop</p>
+                          <p className="text-xs text-muted-foreground mt-1">PDF, JPG or PNG (max 10MB)</p>
+                        </div>
                       </div>
                     </Label>
                   </div>
 
                   {files.length > 0 && (
-                    <div className="mt-4 space-y-2">
+                    <div className="mt-4 space-y-3">
                       <p className="text-sm font-medium">Uploaded Files:</p>
                       <div className="space-y-2">
                         {files.map((file, index) => (
-                          <div key={index} className="flex items-center justify-between bg-muted p-2 rounded-md">
-                            <span className="text-sm truncate max-w-[80%]">{file.name}</span>
-                            <Button variant="ghost" size="icon" onClick={() => removeFile(index)}>
+                          <div key={index} className="flex items-center justify-between bg-muted/50 border border-primary/10 p-3 rounded-lg">
+                            <div className="flex items-center gap-2">
+                              <FileText className="h-4 w-4 text-primary" />
+                              <span className="text-sm truncate max-w-[80%]">{file.name}</span>
+                            </div>
+                            <Button variant="ghost" size="icon" className="hover:bg-destructive/10 hover:text-destructive" onClick={() => removeFile(index)}>
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </div>
@@ -201,15 +235,22 @@ export default function DiseasePredictionPage() {
                   )}
                 </div>
               </CardContent>
-              <CardFooter>
-                <Button type="submit" disabled={isLoading || !symptoms} className="w-full">
+              <CardFooter className="pt-6">
+                <Button 
+                  type="submit" 
+                  disabled={isLoading || !symptoms} 
+                  className="w-full health-gradient text-white hover:scale-105 transition-all duration-200 h-12 text-base font-semibold"
+                >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Analyzing...
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Analyzing Health Information...
                     </>
                   ) : (
-                    "Predict Possible Diseases"
+                    <>
+                      <Activity className="mr-2 h-5 w-5" />
+                      Predict Possible Diseases
+                    </>
                   )}
                 </Button>
               </CardFooter>

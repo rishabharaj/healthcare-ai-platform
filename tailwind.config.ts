@@ -60,6 +60,18 @@ const config: Config = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+			},
+			health: {
+				success: 'hsl(var(--health-success))',
+				warning: 'hsl(var(--health-warning))',
+				error: 'hsl(var(--health-error))',
+				info: 'hsl(var(--health-info))'
+			},
+			medical: {
+				blue: 'hsl(var(--medical-blue))',
+				teal: 'hsl(var(--medical-teal))',
+				green: 'hsl(var(--medical-green))'
+			
   			}
   		},
   		borderRadius: {

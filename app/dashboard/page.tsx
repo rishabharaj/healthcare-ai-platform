@@ -95,10 +95,19 @@ export default function DashboardPage() {
 
   return (
     <div className="container py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="text-sm text-muted-foreground">
-          Welcome, {user.name} ({user.userType})
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-medical-teal bg-clip-text text-transparent">
+            Dashboard
+          </h1>
+          <p className="text-muted-foreground mt-1">Your healthcare analytics overview</p>
+        </div>
+        <div className="text-right">
+          <div className="text-sm text-muted-foreground">Welcome back,</div>
+          <div className="font-semibold text-lg text-primary">
+            {user.name}
+            <span className="text-sm text-muted-foreground ml-2">({user.userType})</span>
+          </div>
         </div>
       </div>
 
@@ -112,100 +121,132 @@ function DoctorDashboard() {
     <>
       {/* Stats Overview */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
-        <Card>
+        <Card className="health-card-hover border-l-4 border-l-medical-blue">
           <CardContent className="p-6">
             <div className="flex items-center justify-between space-y-0">
               <p className="text-sm font-medium text-muted-foreground">Total Patients</p>
-              <Users className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <div className="flex items-baseline justify-between">
-              <h3 className="text-2xl font-bold">1,248</h3>
-              <div className="flex items-center text-sm text-green-500">
-                <ArrowUpRight className="h-4 w-4 mr-1" />
-                <span>12%</span>
+              <div className="p-2 rounded-lg bg-medical-blue/10">
+                <Users className="h-5 w-5 text-medical-blue" />
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">+86 this month</p>
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-3xl font-bold text-medical-blue">1,248</h3>
+              <div className="flex items-center text-sm text-health-success">
+                <ArrowUpRight className="h-4 w-4 mr-1" />
+                <span className="font-semibold">12%</span>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              <span className="text-health-success font-medium">+86</span> this month
+            </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="health-card-hover border-l-4 border-l-medical-teal">
           <CardContent className="p-6">
             <div className="flex items-center justify-between space-y-0">
               <p className="text-sm font-medium text-muted-foreground">Disease Predictions</p>
-              <Activity className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <div className="flex items-baseline justify-between">
-              <h3 className="text-2xl font-bold">3,427</h3>
-              <div className="flex items-center text-sm text-green-500">
-                <ArrowUpRight className="h-4 w-4 mr-1" />
-                <span>8%</span>
+              <div className="p-2 rounded-lg bg-medical-teal/10">
+                <Activity className="h-5 w-5 text-medical-teal" />
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">+124 this week</p>
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-3xl font-bold text-medical-teal">3,427</h3>
+              <div className="flex items-center text-sm text-health-success">
+                <ArrowUpRight className="h-4 w-4 mr-1" />
+                <span className="font-semibold">8%</span>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              <span className="text-health-success font-medium">+124</span> this week
+            </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="health-card-hover border-l-4 border-l-medical-green">
           <CardContent className="p-6">
             <div className="flex items-center justify-between space-y-0">
               <p className="text-sm font-medium text-muted-foreground">Fact Verifications</p>
-              <FileText className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <div className="flex items-baseline justify-between">
-              <h3 className="text-2xl font-bold">2,856</h3>
-              <div className="flex items-center text-sm text-green-500">
-                <ArrowUpRight className="h-4 w-4 mr-1" />
-                <span>15%</span>
+              <div className="p-2 rounded-lg bg-medical-green/10">
+                <FileText className="h-5 w-5 text-medical-green" />
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">+95 this week</p>
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-3xl font-bold text-medical-green">2,856</h3>
+              <div className="flex items-center text-sm text-health-success">
+                <ArrowUpRight className="h-4 w-4 mr-1" />
+                <span className="font-semibold">15%</span>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              <span className="text-health-success font-medium">+95</span> this week
+            </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="health-card-hover border-l-4 border-l-health-warning">
           <CardContent className="p-6">
             <div className="flex items-center justify-between space-y-0">
               <p className="text-sm font-medium text-muted-foreground">Appointments</p>
-              <Calendar className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <div className="flex items-baseline justify-between">
-              <h3 className="text-2xl font-bold">42</h3>
-              <div className="flex items-center text-sm text-red-500">
-                <ArrowDownRight className="h-4 w-4 mr-1" />
-                <span>3%</span>
+              <div className="p-2 rounded-lg bg-health-warning/10">
+                <Calendar className="h-5 w-5 text-health-warning" />
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">8 today</p>
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-3xl font-bold text-health-warning">42</h3>
+              <div className="flex items-center text-sm text-health-error">
+                <ArrowDownRight className="h-4 w-4 mr-1" />
+                <span className="font-semibold">3%</span>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              <span className="text-health-success font-medium">8</span> today
+            </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Charts */}
       <div className="grid gap-6 md:grid-cols-2 mb-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Patient Growth</CardTitle>
+        <Card className="health-card-hover">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-medical-blue/10">
+                <Users className="h-4 w-4 text-medical-blue" />
+              </div>
+              Patient Growth
+            </CardTitle>
             <CardDescription>Number of new patients over time</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={patientData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="#8884d8" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="name" fontSize={12} />
+                  <YAxis fontSize={12} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }}
+                  />
+                  <Bar dataKey="count" fill="hsl(var(--medical-blue))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Disease Distribution</CardTitle>
+        <Card className="health-card-hover">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-medical-teal/10">
+                <Activity className="h-4 w-4 text-medical-teal" />
+              </div>
+              Disease Distribution
+            </CardTitle>
             <CardDescription>Most common diseases diagnosed</CardDescription>
           </CardHeader>
           <CardContent>
@@ -218,7 +259,7 @@ function DoctorDashboard() {
                     cy="50%"
                     labelLine={false}
                     outerRadius={100}
-                    fill="#8884d8"
+                    fill="hsl(var(--medical-teal))"
                     dataKey="value"
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   >
@@ -235,22 +276,45 @@ function DoctorDashboard() {
       </div>
 
       {/* Activity Chart */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Weekly Activity</CardTitle>
+      <Card className="mb-6 health-card-hover">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-lg font-semibold flex items-center gap-2">
+            <div className="p-1.5 rounded-lg bg-medical-green/10">
+              <Activity className="h-4 w-4 text-medical-green" />
+            </div>
+            Weekly Activity
+          </CardTitle>
           <CardDescription>Disease predictions and fact verifications</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={activityData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="day" fontSize={12} />
+                <YAxis fontSize={12} />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'hsl(var(--card))', 
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px'
+                  }}
+                />
                 <Legend />
-                <Line type="monotone" dataKey="predictions" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="verifications" stroke="#82ca9d" />
+                <Line 
+                  type="monotone" 
+                  dataKey="predictions" 
+                  stroke="hsl(var(--medical-blue))" 
+                  strokeWidth={3}
+                  activeDot={{ r: 6, fill: 'hsl(var(--medical-blue))' }} 
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="verifications" 
+                  stroke="hsl(var(--medical-green))"
+                  strokeWidth={3}
+                  activeDot={{ r: 6, fill: 'hsl(var(--medical-green))' }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -259,58 +323,68 @@ function DoctorDashboard() {
 
       {/* Recent Activity and Appointments */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Predictions</CardTitle>
+        <Card className="health-card-hover">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-medical-blue/10">
+                <Activity className="h-4 w-4 text-medical-blue" />
+              </div>
+              Recent Predictions
+            </CardTitle>
             <CardDescription>Latest disease predictions</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {recentPredictions.map((prediction) => (
-                <div key={prediction.id} className="flex items-center justify-between border-b pb-2">
+                <div key={prediction.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-transparent hover:border-primary/20">
                   <div>
-                    <p className="font-medium">{prediction.patient}</p>
+                    <p className="font-medium text-foreground">{prediction.patient}</p>
                     <div className="flex items-center text-sm text-muted-foreground">
-                      <Activity className="h-3 w-3 mr-1" />
+                      <Activity className="h-3 w-3 mr-1 text-medical-blue" />
                       <span>{prediction.disease}</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">{prediction.confidence}%</p>
+                    <p className="font-semibold text-medical-blue">{prediction.confidence}%</p>
                     <p className="text-xs text-muted-foreground">{prediction.date}</p>
                   </div>
                 </div>
               ))}
-              <Button variant="outline" size="sm" className="w-full" asChild>
+              <Button variant="outline" size="sm" className="w-full border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all duration-200" asChild>
                 <Link href="/predictions">View All Predictions</Link>
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Upcoming Appointments</CardTitle>
+        <Card className="health-card-hover">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-health-warning/10">
+                <Calendar className="h-4 w-4 text-health-warning" />
+              </div>
+              Upcoming Appointments
+            </CardTitle>
             <CardDescription>Scheduled patient appointments</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {upcomingAppointments.map((appointment) => (
-                <div key={appointment.id} className="flex items-center justify-between border-b pb-2">
+                <div key={appointment.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-transparent hover:border-primary/20">
                   <div>
-                    <p className="font-medium">{appointment.patient}</p>
+                    <p className="font-medium text-foreground">{appointment.patient}</p>
                     <div className="flex items-center text-sm text-muted-foreground">
-                      <Clock className="h-3 w-3 mr-1" />
+                      <Clock className="h-3 w-3 mr-1 text-health-warning" />
                       <span>{appointment.time}</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm">{appointment.type}</p>
+                    <p className="text-sm font-medium text-health-warning">{appointment.type}</p>
                     <p className="text-xs text-muted-foreground">{appointment.date}</p>
                   </div>
                 </div>
               ))}
-              <Button variant="outline" size="sm" className="w-full" asChild>
+              <Button variant="outline" size="sm" className="w-full border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all duration-200" asChild>
                 <Link href="/appointments">View All Appointments</Link>
               </Button>
             </div>
