@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Loader2, AlertCircle, Info, Upload, Trash2 } from "lucide-react"
+import { Loader2, AlertCircle, Info, Upload, Trash2, Activity, FileText } from "lucide-react"
 import { generateText } from "ai"
 import { openai } from "@ai-sdk/openai"
 
