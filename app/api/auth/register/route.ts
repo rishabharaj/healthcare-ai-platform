@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { hash } from "bcrypt"
+import { hash } from "bcryptjs"
 
 // This is a mock implementation - in a real app, you would use a database
 const users: any[] = []
